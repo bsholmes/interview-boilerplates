@@ -1,26 +1,46 @@
-import './App.css';
-import logo from './logo.svg';
-import React from 'react';
+import React, { useState } from 'react';
+import styled from 'styled-components/macro';
+
+import ShipmentSummary from './pages/ShipmentSummary';
+import OrderSummaryOverlay from './components/OrderSummaryOverlay';
+
+import ShipmentData from './mock_data/shipments.json';
+import OrderData from './mock_data/orders.json';
 
 function App() {
+  const [orderSummaryNumber, setOrderSummaryNumber] = useState(-1);
+  const [selectedShipmentId, setSelectedShipmentId] = useState(ShipmentData[0].id);
+
+  const orderShipments = ShipmentData.filter(
+    shipment => shipment.orderNumber === orderSummaryNumber,
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContainer id="app-container">
+      <ShipmentSummary
+        OrderData={OrderData}
+        ShipmentData={ShipmentData}
+        selectedShipmentId={selectedShipmentId}
+        onFullOrderClick={orderNumber => setOrderSummaryNumber(orderNumber)}
+      />
+      {orderSummaryNumber > 0 && (
+        <OrderSummaryOverlay
+          shipments={orderShipments}
+          onCloseOderSummary={() => setOrderSummaryNumber(-1)}
+          onSetSelectedShipmentId={shipmentId => {
+            setSelectedShipmentId(shipmentId);
+            setOrderSummaryNumber(-1);
+          }}
+        />
+      )}
+    </AppContainer>
   );
 }
+
+const AppContainer = styled.div`
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+`;
 
 export default App;
