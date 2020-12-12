@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 import { lightGrey, grey, textGrey } from '../styles/Colors';
 import { H3Style, H4Style, H5Style, H6Style } from '../styles/Headings';
 
-import { STATUS_LABEL_MAP } from '../pages/ShipmentSummary';
+import { STATUS_LABEL_MAP } from '../constants';
 
 import FedexLogoPNG from '../assets/img_Fedex.png';
 import UPSLogoPNG from '../assets/img_ups.png';

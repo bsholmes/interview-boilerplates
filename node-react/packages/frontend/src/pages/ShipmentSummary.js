@@ -12,13 +12,10 @@ import { MQ_FOR_MOBILE } from '../styles/MediaQueries';
 
 import { formatDate, isSameDay } from '../utils/utils';
 
+import { STATUS_LABEL_MAP } from '../constants';
+
 import pickupsSVG from '../assets/ic_pickups.svg';
 import promoPNG from '../assets/img_Promo.png';
-
-export const STATUS_LABEL_MAP = {
-  in_transit: 'In Transit',
-  scheduled: 'Scheduled',
-};
 
 const STATUS_PERCENT_MAP = {
   in_transit: 0.75,
@@ -95,7 +92,7 @@ const ShipmentSummary = ({
             }}
           />
         </InnerContainer>
-        <PrimaryCTA onClick={onFullOrderClick}>See all items in your order</PrimaryCTA>
+        <PrimaryCTA onClick={() => onFullOrderClick(shipment.orderNumber)}>See all items in your order</PrimaryCTA>
       </Column>
     </Container>
   );
